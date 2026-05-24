@@ -4,432 +4,328 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Nagoya & Hida: A 7-Day Couple’s Travel Itinerary</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #1e272e;
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
             --accent-color: #ff4757;
-            --bg-color: #f5f6fa;
+            --bg-color: #f7fafc;
             --card-bg: #ffffff;
-            --text-main: #2f3542;
-            --text-muted: #747d8c;
-            --border-color: #ced6e0;
-            --weather-bg: #edf2f7;
+            --text-color: #2d3748;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Serif TC", "PingFang TC", sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-main);
+            color: var(--text-color);
             line-height: 1.6;
             -webkit-text-size-adjust: 100%;
         }
 
-        .container { width: 100%; max-width: 800px; margin: 0 auto; padding: 12px; }
-
-        .cover {
-            text-align: center; padding: 35px 15px; background-color: var(--card-bg);
-            border: 1px solid var(--border-color); margin-bottom: 20px; border-radius: 8px;
+        header {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        .cover-badge {
-            display: inline-block; border: 1px solid var(--primary-color);
-            padding: 4px 12px; font-size: 8pt; letter-spacing: 2px; margin-bottom: 15px; font-weight: bold;
+        header h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 1px; }
+        header p { font-size: 0.9rem; opacity: 0.9; }
+
+        .container { max-width: 800px; margin: 1.5rem auto; padding: 0 12px; }
+
+        .day-card {
+            background: var(--card-bg); border-radius: 16px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem; overflow: hidden; border: 1px solid #e2e8f0;
         }
 
-        .cover-title { font-size: 18pt; letter-spacing: 2px; font-weight: bold; color: var(--primary-color); margin-bottom: 10px; line-height: 1.3; }
-        .cover-subtitle { font-size: 11pt; letter-spacing: 3px; color: var(--text-muted); margin-bottom: 25px; }
-        
-        .cover-meta {
-            text-align: left; display: block; border-left: 3px solid var(--primary-color);
-            padding-left: 15px; font-size: 10pt; color: #57606f; line-height: 1.8;
+        .day-header {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white; padding: 1rem 1.25rem; font-size: 1.1rem; font-weight: 600;
+            display: flex; align-items: center; gap: 0.5rem;
         }
 
-        .day-section {
-            background-color: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 8px; padding: 20px; margin-bottom: 20px;
-        }
+        .day-body { padding: 1.25rem; }
 
-        .day-header { border-bottom: 2px solid var(--primary-color); padding-bottom: 8px; margin-bottom: 15px; }
-        .day-header h2 { margin: 0; font-size: 13pt; color: var(--primary-color); }
-
-        /* 天氣預報彈性面板 */
         .weather-panel {
-            background-color: var(--weather-bg); border-left: 4px solid #3182ce;
-            padding: 12px; margin-bottom: 15px; border-radius: 0 6px 6px 0; font-size: 9.5pt;
+            background: #ebf8ff; border-left: 4px solid #3182ce;
+            padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem; font-size: 0.95rem;
         }
 
-        .weather-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 6px; }
-        .weather-item strong { color: #2b6cb0; }
-        .weather-tip { border-top: 1px dashed #cbd5e0; padding-top: 4px; margin-top: 4px; color: #4a5568; font-size: 9pt; }
+        .weather-title { font-weight: bold; color: #2b6cb0; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.25rem; }
 
         .day-strategy {
             background-color: #f1f2f6; border-left: 4px solid var(--primary-color);
-            padding: 12px; margin-bottom: 20px; border-radius: 0 6px 6px 0;
+            padding: 12px; margin-bottom: 1.5rem; border-radius: 0 8px 8px 0;
         }
         .day-strategy h3 { margin: 0 0 4px 0; font-size: 10pt; color: var(--primary-color); }
         .day-strategy p { margin: 0; font-size: 9.5pt; color: #57606f; }
 
-        /* RWD 圖片彈性自適應（相容 Base64 與同目錄讀取） */
-        .image-container-multi { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
-        .image-box { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; width: 100%; }
-        .image-box img { width: 100%; height: auto; max-height: 250px; object-fit: cover; display: block; }
-        .image-caption { background-color: #fafafa; padding: 8px 10px; font-size: 8.5pt; color: var(--text-muted); border-top: 1px solid var(--border-color); line-height: 1.3; }
+        .spot-section { margin-bottom: 1.5rem; }
+        .spot-section:last-child { margin-bottom: 0; }
 
-        .timeline-item { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px dashed var(--border-color); }
-        .timeline-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        .time-box { font-weight: bold; color: var(--accent-color); font-size: 10pt; margin-bottom: 4px; }
-        .item-title { font-size: 11pt; font-weight: bold; color: var(--primary-color); margin-bottom: 4px; }
-        .item-desc { font-size: 10pt; color: #57606f; margin: 0 0 8px 0; text-align: justify; }
-
-        /* 手機大按鈕導航設計 */
-        .map-btn {
-            display: inline-flex; align-items: center; justify-content: center;
-            background-color: #ffffff; color: var(--primary-color); border: 1px solid var(--primary-color);
-            padding: 10px 16px; font-size: 9pt; border-radius: 6px; text-decoration: none;
-            font-weight: bold; margin-top: 4px; width: 100%; text-align: center;
+        .spot-title {
+            font-size: 1.1rem; color: var(--primary-color); margin-bottom: 0.75rem; font-weight: 600;
+            display: flex; flex-direction: column; border-bottom: 2px solid #edf2f7; padding-bottom: 0.35rem; gap: 4px;
         }
-        .map-btn::before { content: "📍 "; margin-right: 6px; }
 
-        .global-box { background-color: #ffffff; border: 1px solid var(--accent-color); padding: 15px; border-radius: 8px; margin-top: 20px; }
-        .global-box h3 { margin-top: 0; color: var(--accent-color); font-size: 11pt; border-bottom: 1px solid var(--border-color); padding-bottom: 6px; }
-        .global-box ul { margin: 0; padding-left: 15px; font-size: 9.5pt; color: var(--text-main); line-height: 1.6; }
-        .footer { text-align: center; padding: 30px 10px; color: var(--text-muted); font-size: 9pt; }
+        .spot-time { align-self: flex-start; font-size: 0.8rem; background: #edf2f7; padding: 0.15rem 0.5rem; border-radius: 20px; color: #4a5568; }
+
+        .info-list { list-style: none; margin-bottom: 1rem; }
+        .info-list li { position: relative; padding-left: 1.25rem; margin-bottom: 0.5rem; font-size: 0.95rem; text-align: justify; }
+        .info-list li::before { content: "•"; color: var(--secondary-color); font-weight: bold; position: absolute; left: 0.25rem; }
+
+        /* RWD 圖片彈性等比例樣式 */
+        .image-container-multi { display: flex; flex-direction: column; gap: 12px; margin-top: 0.75rem; margin-bottom: 1rem; }
+        .photo-container { border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); background-color: #edf2f7; width: 100%; }
+        .photo-container img { width: 100%; height: auto; display: block; object-fit: cover; }
+        .image-caption { background-color: #fafafa; padding: 8px 10px; font-size: 8.5pt; color: #718096; border-top: 1px solid #edf2f7; }
+
+        /* 手機大寬度地圖導航按鈕 */
+        .nav-btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+            background-color: #ffffff; color: var(--primary-color); border: 1px solid var(--primary-color);
+            text-decoration: none; padding: 10px 16px; border-radius: 8px; font-size: 0.95rem; font-weight: bold;
+            margin-top: 0.5rem; width: 100%; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .nav-btn:active { background-color: var(--primary-color); color: white; }
+
+        footer { text-align: center; padding: 2rem 1rem; color: #718096; font-size: 0.85rem; border-top: 1px solid #e2e8f0; background: white; }
 
         @media (min-width: 600px) {
-            .container { padding: 20px; }
-            .cover { padding: 50px 30px; .cover-title { font-size: 24pt; } }
-            .day-section { padding: 25px; }
-            .weather-grid { grid-template-columns: repeat(4, 1fr); }
+            header h1 { font-size: 2rem; }
+            .spot-title { flex-direction: row; align-items: center; justify-content: space-between; }
             .image-container-multi { flex-direction: row; }
-            .image-box { flex: 1; }
-            .map-btn { width: auto; }
+            .photo-container { flex: 1; }
+            .nav-btn { width: auto; }
         }
     </style>
 </head>
 <body>
 
+    <header>
+        <h1><i class="fa-solid fa-star"></i> Nagoya & Hida: 7-Day Couple's Itinerary</h1>
+        <p>總表行程精準校正 ✕ 本地真實相片 ✕ 手機 RWD 隨身手冊 ✈️</p>
+    </header>
+
     <div class="container">
 
-        <div class="cover">
-            <div class="cover-badge">NAGOYA7DAYS TRAVEL GUIDE</div>
-            <h1 class="cover-title">名古屋與飛驒高山<br>自駕慢活與都會之旅</h1>
-            <div class="cover-subtitle">洗鍊美學 ✕ 100% 正確行程順序 ✕ 手機 RWD 適配</div>
-            <div class="cover-meta">
-                <strong>旅程時間：</strong> 2026年5月25日 — 5月31日<br>
-                <strong>跑車配備：</strong> Toyota GR Yaris 頂級性能四驅鋼砲 (Day 1 - Day 5)<br>
-                <strong>航空艙等：</strong> 國泰航空 CX530 / CX531 商務艙優先通關流<br>
-                <strong>地圖聯動：</strong> 手機點擊 100% 喚醒 Google Maps App 導航機制
+        <div class="day-card">
+            <div class="day-header"><i class="fa-solid fa-calendar-day"></i> DAY 1：自駕啟程與向高山疾馳</div>
+            <div class="day-body">
+                <div class="weather-panel">
+                    <div class="weather-title"><i class="fa-solid fa-cloud-sun"></i> 名古屋市一週天氣預報</div>
+                    <div>今日氣溫：18°C ~ 26°C (晴時多雲) ｜ 自駕行駛路面乾燥，前往高山沿途氣溫會明顯下降。</div>
+                    <div class="photo-container" style="margin-top: 0.75rem;">
+                        <img src="名古屋市-一週天氣.png" alt="名古屋一週天氣">
+                    </div>
+                </div>
+
+                <div class="spot-section">
+                    <div class="spot-title">第一站：中部國際空港取車 ➔ 長良川 SA ➔ 高山 <span class="spot-time">15:30 降落</span></div>
+                    <ul class="info-list">
+                        <li>商務艙極速出關，下樓至交通廣場 Toyota 租車據點領取 GR Yaris。</li>
+                        <li>自駕開車北上高山（車程約 2.5 小時），中途於長良川 SA 休息。</li>
+                        <li>入住飯店 Check-in，預約私人溫泉放鬆。晚餐享用甚五郎拉麵。</li>
+                    </ul>
+                    <div class="image-container-multi">
+                        <div class="photo-container">
+                            <img src="中部國際空港%20%E3%82%BB%E3%83%B3%E3%83%88%E3%83%AC%E3%82%A2.webp" alt="中部國際空港">
+                            <div class="image-caption">🔍 實景對照：降落後寬敞的中部國際空港航廈。</div>
+                        </div>
+                        <div class="photo-container">
+                            <img src="GR%20Yaris.jpg" alt="GR Yaris">
+                            <div class="image-caption">🔍 實景對照：本次跑車自駕主角 GR Yaris 鋼砲跑車。</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="day-section">
-            <div class="day-header">
-                <h2>📅 Day 1（5/25 一）抵達日本，性能戰駒啟程北上</h2>
-            </div>
-            
-            <div class="weather-panel">
-                <div class="weather-grid">
-                    <div class="weather-item"><strong>📍 常滑/名古屋：</strong>晴時多雲</div>
-                    <div class="weather-item"><strong>🌡️ 氣溫：</strong>18°C ~ 26°C</div>
-                    <div class="weather-item"><strong>💧 降雨機率：</strong>10%</div>
-                    <div class="weather-item"><strong>🚘 操駕路況：</strong>乾燥路面，抓地力極佳</div>
+        <div class="day-card">
+            <div class="day-header"><i class="fa-solid fa-calendar-day"></i> DAY 2：新穗高高空大景 ✕ 白川鄉合掌村慢活</div>
+            <div class="day-body">
+                <div class="day-strategy">
+                    <h3>🎯 今日輕裝大戰略</h3>
+                    <p><strong>行李留在房間不退房！</strong> 兩人 07:00 輕裝出發。在零行李重負的狀態下，完美釋放 GR Yaris 在飛驒山道上的全時四驅操控魅力，逆時針大三角形動線不走回頭路。</p>
                 </div>
-                <div class="weather-tip">💡 穿搭提醒：高山地區海拔較高，晚上氣溫會急遽下降，請將外套放在車內隨手可拿處。</div>
-            </div>
 
-            <div class="image-container-multi">
-                <div class="image-box">
-                    <img src="中部國際空港 セントレア.webp" alt="中部國際空港">
-                    <div class="image-caption">🔍 實景對照：抵達中部國際機場，寬敞明亮的交通廣場。</div>
+                <div class="spot-section">
+                    <div class="spot-title">第一站：新穗高高空纜車首班車 ➔ 白川鄉合掌村 ➔ 高山三之町</div>
+                    <ul class="info-list">
+                        <li>搭乘 08:30 第一班雙層纜車直攻海拔 2156 公尺展望台，避開大批觀光團客。</li>
+                        <li>中午漫步在世界文化遺產白川鄉合掌村的茅草屋聚落中。</li>
+                        <li>下午返回高山市區，悠閒慢步三之町古街歷史建築區。</li>
+                    </ul>
+                    <div class="image-container-multi">
+                        <div class="photo-container">
+                            <img src="新穗高纜車.jpg" alt="新穗高纜車">
+                            <div class="image-caption">🔍 實景對照：新穗高雙層高空纜車與絕美山景。</div>
+                        </div>
+                        <div class="photo-container">
+                            <img src="合掌村.jpg" alt="合掌村">
+                            <div class="image-caption">🔍 實景對照：初夏翠綠環繞的白川鄉合掌村。</div>
+                        </div>
+                    </div>
+                    <a href="https://maps.google.com/?q=Shin-Hotaka+Ropeway" target="_blank" class="nav-btn"><i class="fa-solid fa-location-dot"></i> 點我導航：新穗高高空纜車</a>
                 </div>
-            </div>
 
-            <div class="timeline-item">
-                <div class="time-box">11:30 - 15:30</div>
-                <div class="item-title">國泰航空 CX530 航班旅程</div>
-                <div class="item-desc">搭乘商務艙飛抵名古屋。出關後步行前往交通廣場辦理取車。</div>
-                <a class="map-btn" href="https://maps.google.com/?q=Chubu+Centrair+International+Airport" target="_blank">點我導航：中部國際機場 (NGO)</a>
-            </div>
-
-            <div class="timeline-item">
-                <div class="time-box">16:00 - 19:00</div>
-                <div class="item-title">Toyota 租車據點與開車北上</div>
-                <div class="item-desc">辦理 GR Yaris 取車手續，現場確認加購 JAF 保險。隨後開車疾馳前往高山（車程約 2.5 小時）。</div>
-                <a class="map-btn" href="https://maps.google.com/?q=Toyota+Rent+a+Car+Chubu+Centrair+International+Airport" target="_blank">點我導航：Toyota租車 中部國際機場店</a>
-            </div>
-
-            <div class="timeline-item">
-                <div class="time-box">19:00~</div>
-                <div class="item-title">入住高山溫泉飯店</div>
-                <div class="item-desc">辦理 Check-in。今晚與明晚均連住此處。進房後可向櫃檯預約私人貸切溫泉。</div>
-                <a class="map-btn" href="https://maps.google.com/?q=Tokyu+Stay+Hida+Takayama" target="_blank">點我導航：Tokyu Stay Hida Takayama 結之湯</a>
+                <div class="spot-section">
+                    <div class="spot-title">晚餐極致饗宴：高山丸明燒肉</div>
+                    <ul class="info-list">
+                        <li>入座高山燒肉名店「丸明」，大快朵頤油脂細緻如大理石紋理的頂級 A5 飛驒牛。</li>
+                    </ul>
+                    <div class="photo-container">
+                        <img src="高山丸明燒肉.jpg" alt="丸明燒肉">
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="day-section">
-            <div class="day-header">
-                <h2>📅 Day 2（5/26 二）全心沉浸！吉卜力奇幻全日衝刺 ✕ 都會璀璨夜景</h2>
-            </div>
-
-            <div class="weather-panel">
-                <div class="weather-grid">
-                    <div class="weather-item"><strong>📍 名古屋市區：</strong>多雲轉晴</div>
-                    <div class="weather-item"><strong>🌡️ 氣溫：</strong>17°C ~ 25°C</div>
-                    <div class="weather-item"><strong>💧 降雨機率：</strong>20%</div>
-                    <div class="weather-item"><strong>📷 旅拍能見度：</strong>午後通透，高空夜景極佳</div>
+        <div class="day-card">
+            <div class="day-header"><i class="fa-solid fa-calendar-day"></i> DAY 3：07:00朝市突擊 ➔ 南下名古屋都會橫掃</div>
+            <div class="day-body">
+                <div class="weather-panel">
+                    <div class="weather-title"><i class="fa-solid fa-cloud-rain"></i> 飛驒高山一週天氣預報</div>
+                    <div>今日氣溫：14°C ~ 22°C (陰局部雨) ｜ 雨天正好全面切換至名古屋都會市區的室內採購與美食戰術！</div>
+                    <div class="photo-container" style="margin-top: 0.75rem;">
+                        <img src="高山市-一週天氣.jpg" alt="高山一週天氣">
+                    </div>
                 </div>
-                <div class="weather-tip">💡 園區戰術：吉卜力公園內多為步行與拍照行程，建議穿著休閒舒適的亮色系鞋服。</div>
-            </div>
 
-            <div class="image-container-multi">
-                <div class="image-box">
-                    <img src="吉卜力公園.jpeg" alt="吉卜力公園">
-                    <div class="image-caption">🔍 實景對照：吉卜力公園魔女之谷經典歐洲童話景觀。</div>
+                <div class="spot-section">
+                    <div class="spot-title">第一站：宮川朝市體驗 ➔ 喫茶ドン <span class="spot-time">07:00 準時直攻</span></div>
+                    <ul class="info-list">
+                        <li><b>07:00 搶先突擊朝市！</b> 此時人潮最少，品嚐在地手作布丁與濃郁鮮牛奶。</li>
+                        <li>07:30 進入老字號咖啡廳「喫茶ドン」享用招牌法式吐司與熱咖啡。</li>
+                    </ul>
+                    <div class="photo-container">
+                        <img src="宮川朝市.jpg" alt="宮川朝市">
+                    </div>
                 </div>
-            </div>
 
-            <div class="timeline-item">
-                <div class="time-box">10:00 - 17:00</div>
-                <div class="item-title">吉卜力公園全日沉浸大冒險</div>
-                <div class="item-desc">開園直衝「魔女之谷」拿霍爾城堡整理券；下午 14:00 順暢接軌進入全室內的大倉庫展館，瘋狂採購限定周邊。</div>
-                <a class="map-btn" href="https://maps.google.com/?q=Ghibli+Park" target="_blank">點我導航：吉卜力公園 園區位置</a>
-            </div>
+                <div class="spot-section">
+                    <div class="spot-title">第二站：名站 Bic Camera 搬電鍋 ➔ 榮町精品與藥妝大採購</div>
+                    <ul class="info-list">
+                        <li>中午大行李箱裝車，一路開車南下名古屋，直殺 Bic Camera 西店特約停車場。</li>
+                        <li>快速拿下象印頂級電鍋鎖入後車廂；下午進駐榮町松坂屋與唐吉訶德橫掃戰利品。</li>
+                    </ul>
+                    <div class="photo-container">
+                        <img src="Bic%20Camera%20%E5%90%8D%E5%8F%A4%E5%B1%8B%E9%A7%85%E8%A5%BF%E5%BA%97.webp" alt="Bic Camera 名古屋駅西店">
+                    </div>
+                </div>
 
-            <div class="timeline-item">
-                <div class="time-box">17:30 - 21:30</div>
-                <div class="item-title">都会享樂：馬喰一代和牛 ＆ Sky Promenade 高空旅拍</div>
-                <div class="item-desc">晚餐安排享用飛驒牛一頭家馬喰一代。隨後換上微正式正裝，登頂 44 樓進行全手持、不打擾的隱形流星光旅拍。</div>
-                <a class="map-btn" href="https://maps.google.com/?q=Sky+Promenade+Nagoya" target="_blank">點我導航：Sky Promenade 觀景台</a>
+                <div class="spot-section">
+                    <div class="spot-title">晚餐盛宴：カツレツ MATUMURA（炸豬排 滿村）</div>
+                    <ul class="info-list">
+                        <li>車輛停回飯店封印不移車。搭地鐵前往名站享用 Tabelog 3.71 分的低溫慢炸粉紅黑豬肉豬排。</li>
+                    </ul>
+                    <div class="photo-container">
+                        <img src="カツレツ%20MATUMURA-%E4%BD%8E%E6%BA%AB%E6%85%A2%E7%82%B8%E8%B1%9A%E6%8E%92.jpg" alt="炸豬排 滿村">
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="day-section">
-            <div class="day-header">
-                <h2>📅 Day 3（5/27 三）晴天衝刺！07:00宮川朝市與飛驒大自然三角形大動線</h2>
-            </div>
-
-            <div class="weather-panel">
-                <div class="weather-grid">
-                    <div class="weather-item"><strong>📍 高山/新穗高：</strong>晴朗無雲</div>
-                    <div class="weather-item"><strong>🌡️ 氣溫：</strong>12°C ~ 22°C (山頂約 5°C)</div>
-                    <div class="weather-item"><strong>💧 降雨機率：</strong>0%</div>
-                    <div class="weather-item"><strong>🚘 操駕感：</strong>晴空能見度極高，山道操駕完美</div>
+        <div class="day-card">
+            <div class="day-header"><i class="fa-solid fa-calendar-day"></i> DAY 4：夢幻吉卜力公園全日沉浸冒險</div>
+            <div class="day-body">
+                <div class="spot-section">
+                    <div class="spot-title">全天行程：吉卜力公園 (Ghibli Park) ✕ 蓬萊軒鰻魚飯 <span class="spot-time">10:00 - 17:00</span></div>
+                    <ul class="info-list">
+                        <li>10:00 開園直衝「魔女之谷」拿霍爾城堡整理券；下午 14:00 順暢進入全室內大倉庫。</li>
+                        <li>晚餐步行前往あつた蓬萊軒松坂屋店，享受最焦香濃郁的正宗名古屋鰻魚三吃。</li>
+                    </ul>
+                    <div class="photo-container">
+                        <img src="吉卜力公園.jpeg" alt="吉卜力公園">
+                    </div>
+                    <a href="https://maps.google.com/?q=Ghibli+Park" target="_blank" class="nav-btn"><i class="fa-solid fa-location-dot"></i> 點我導航：吉卜力公園</a>
                 </div>
-                <div class="weather-tip">💡 防寒備戰：新穗高山頂展望台氣溫極低接近零度，請務必將保暖厚外套帶在身上。</div>
-            </div>
-
-            <div class="day-strategy">
-                <h3>🎯 今日輕裝大戰略</h3>
-                <p><strong>行李留在房間，絕對不退房！</strong> 兩人 07:00 輕裝直衝朝市。在完全沒有任何大行李重負的狀態下，完美釋放 GR Yaris 在飛驒山道上的操控魅力，逆時針繞行三角形不走回頭路。</p>
-            </div>
-
-            <div class="image-container-multi">
-                <div class="image-box">
-                    <img src="宮川朝市.jpg" alt="宮川朝市">
-                    <div class="image-caption">🔍 實景對照：清晨 07:00 剛擺設完畢、空氣極其清新的宮川朝市河畔。</div>
-                </div>
-                <div class="image-box">
-                    <img src="新穗高纜車.jpg" alt="新穗高纜車" onerror="this.src='新穗高纜車.webp'">
-                    <div class="image-caption">🔍 實景對照：搭乘日本唯一雙層高空纜車直登展望台，飽覽壯麗連峰。</div>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="time-box">07:00 - 08:30</div>
-                <div class="item-title">宮川朝市 ✕ 喫茶ドン雙早餐突擊</div>
-                <div class="item-desc"><strong>07:00 準時直攻！</strong> 搶先品嚐飛驒手作布丁與低溫鮮牛奶；隨後轉進「喫茶ドン」享用招牌法式吐司與熱咖啡。</div>
-                <a class="map-btn" href="https://maps.google.com/?q=Miyagawa+Morning+Market" target="_blank">點我導航：宮川朝市 位置</a>
-            </div>
-
-            <div class="timeline-item">
-                <div class="time-box">09:30 - 14:00</div>
-                <div class="item-title">新穗高高空纜車 ➔ 白川鄉合掌村漫步</div>
-                <div class="item-desc">體驗高空視覺震撼。隨後驅車疾馳前往世界文化遺產白川鄉合掌村，慢步在童話般的草屋與初夏田園線條中。</div>
-                <a class="map-btn" href="https://maps.google.com/?q=Shin-Hotaka+Ropeway" target="_blank">點我導航：新穗高高空纜車</a>
-            </div>
-
-            <div class="timeline-item">
-                <div class="time-box">17:30~</div>
-                <div class="item-title">老街散策與晚餐：丸明飛驒燒肉</div>
-                <div class="item-desc">返回高山市區散步。晚餐入座名店「丸明」，大快朵頤油脂細緻大理石紋理、入口即化的 A5 飛驒牛燒肉。</div>
-                <a class="map-btn" href="https://maps.google.com/?q=Maruaki+Takayama" target="_blank">點我導航：飛驒牛燒肉 丸明高山店</a>
             </div>
         </div>
 
-        <div class="day-section">
-            <div class="day-header">
-                <h2>📅 Day 4（5/28 四）南下名古屋，榮町硬核採購狂熱流</h2>
-            </div>
-
-            <div class="weather-panel">
-                <div class="weather-grid">
-                    <div class="weather-item"><strong>📍 名古屋市區：</strong>陰有小雨</div>
-                    <div class="weather-item"><strong>🌡️ 氣溫：</strong>15°C ~ 21°C</div>
-                    <div class="weather-item"><strong>💧 降雨機率：</strong>60%</div>
-                    <div class="weather-item"><strong>🚘 操駕感：</strong>高速道路濕滑，請保持安全車距</div>
+        <div class="day-card">
+            <div class="day-header"><i class="fa-solid fa-calendar-day"></i> DAY 5：長島溫泉樂園 ✕ 鋼砲圓滿還車與飛驒牛</div>
+            <div class="day-body">
+                <div class="spot-section">
+                    <div class="spot-title">白晝行程：長島溫泉樂園 ➔ 三井 Outlet 購箱打包 <span class="spot-time">10:30 - 18:00</span></div>
+                    <ul class="info-list">
+                        <li>上午爽玩直衝天際的巨大雲霄飛車設施。下午於 Outlet Samsonite 買全新大箱現場封箱。</li>
+                        <li>18:00 離場回飯店卸貨。20:00 前完成名站據點還車。晚餐享用馬喰一代飛驒牛。</li>
+                    </ul>
+                    <div class="image-container-multi">
+                        <div class="photo-container">
+                            <img src="長島溫泉樂園.jpg" alt="長島溫泉樂園">
+                            <div class="image-caption">🔍 實景對照：直衝天際的長島白色巨型雲霄飛車軌道。</div>
+                        </div>
+                        <div class="photo-container">
+                            <img src="三井Outlet-%E5%B1%95%E5%A3%AB%E4%B9%8B%E5%A4%A2%E9%95%B7%E5%B3%B6.webp" alt="三井Outlet">
+                            <div class="image-caption">🔍 實景對照：緊鄰樂園的三井 Outlet 購物廣場。</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="weather-tip">💡 傘具防禦：今日天候有雨，正好全天執行室內採購戰術，戰利品直接塞進車內封印！</div>
-            </div>
-
-            <div class="image-container-multi">
-                <div class="image-box">
-                    <img src="Bic Camera 名古屋駅西店.webp" alt="Bic Camera">
-                    <div class="image-caption">🔍 實景對照：位於名站西口，開車直入特約停車場，直奔家電層。</div>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="time-box">12:30 - 13:40</div>
-                <div class="item-title">【第一站：名站搬電鍋】Bic Camera</div>
-                <div class="item-desc">自駕南下名古屋，直接停進西店特約停車場。直攻家電層快速打包象印頂級電鍋，原箱鎖入車內。</div>
-                <a class="map-btn" href="https://maps.google.com/?q=Bic+Camera+Nagoya+Station+West" target="_blank">點我導航：Bic Camera 名古屋站西店</a>
-            </div>
-
-            <div class="timeline-item">
-                <div class="time-box">14:00 - 16:30</div>
-                <div class="item-title">【第二站：榮町橫掃藥妝、精品 BAO BAO】</div>
-                <div class="item-desc">車停名星級 Jumbo Parking。步行進攻松坂屋百貨購入 BAO BAO（享5%折抵+免稅），隨後橫掃唐吉訶德免稅藥妝。</div>
-                <a class="map-btn" href="https://maps.google.com/?q=Jumbo+Parking+Nagoya" target="_blank">點我導航：Jumbo Parking 停車場</a>
-            </div>
-
-            <div class="timeline-item">
-                <div class="time-box">17:00~</div>
-                <div class="item-title">晚餐：カツレツ MATUMURA（炸豬排 滿村）</div>
-                <div class="item-desc">兩手空空不開車，搭地鐵至名站大名古屋 Building，享用 Tabelog 高分極致多汁、低溫慢炸黑豬肉豬排。</div>
-                <a class="map-btn" href="https://maps.google.com/?q=Katsuretsu+Matumura" target="_blank">點我導航：炸豬排 滿村 餐廳位置</a>
             </div>
         </div>
 
-        <div class="day-section">
-            <div class="day-header">
-                <h2>📅 Day 5（5/29 五）長島熱血大冒險 ✕ 鋼砲跑車功德圓滿還車</h2>
-            </div>
-
-            <div class="weather-panel">
-                <div class="weather-grid">
-                    <div class="weather-item"><strong>📍 長島/名站：</strong>晴空萬里</div>
-                    <div class="weather-item"><strong>🌡️ 氣溫：</strong>19°C ~ 27°C</div>
-                    <div class="weather-item"><strong>💧 降雨機率：</strong>0%</div>
-                    <div class="weather-item"><strong>🚘 操駕感：</strong>沿海強風，伊勢灣岸高速請握穩方向盤</div>
+        <div class="day-card">
+            <div class="day-header"><i class="fa-solid fa-calendar-day"></i> DAY 6：都會慢活浪漫 ✕ 高空星光旅拍</div>
+            <div class="day-body">
+                <div class="spot-section">
+                    <div class="spot-title">午餐名店：コンパル 大須本店 炸蝦三明治</div>
+                    <ul class="info-list">
+                        <li>漫步大須商圈商店街。午餐朝聖 1947 年創業老店，享受爆盛香酥的招牌炸蝦三明治。</li>
+                    </ul>
+                    <div class="photo-container">
+                        <img src="コンハ%E3%83%AB%20大須本店%20%EF%BD%9C%20炸蝦三明%E6%B2%BB%201947%E5%B9%B4.jpg" alt="大須 炸蝦三明治" onerror="this.src='コンハ%E3%83%AB%20大須本店%20%EF%BD%9C%20炸蝦三明%E6%B2%BB%201947%E5%B9%B4.png'">
+                    </div>
                 </div>
-                <div class="weather-tip">💡 防曬提醒：長島沿海完全無遮蔽物，陽光紫外線強烈，請做好防曬並配戴墨鏡。</div>
-            </div>
 
-            <div class="image-container-multi">
-                <div class="image-box">
-                    <img src="長島溫泉樂園.jpg" alt="長島溫泉樂園">
-                    <div class="image-caption">🔍 實景對照：直衝天際的巨大長島溫泉樂園白色雲霄飛車軌道。</div>
+                <div class="spot-section">
+                    <div class="spot-title">傍晚行程：Sky Promenade 高空隨行旅拍 ➔ L'Auberge de l'Ill 法餐 <span class="spot-time">17:00 - 19:00</span></div>
+                    <ul class="info-list">
+                        <li>換上 Smart Casual 微正式禮服，在 44F 露天迴廊與團隊記錄深藍魔幻時刻都會大大片（禁腳架）。</li>
+                        <li>晚餐進入 42 樓 L'Auberge 法國餐廳，在窗邊席位俯瞰百萬夜景，品嚐頂級浪漫晚宴。</li>
+                    </ul>
+                    <div class="image-container-multi">
+                        <div class="photo-container">
+                            <img src="Sky%20Promenade.jpg" alt="Sky Promenade 夜景">
+                        </div>
+                        <div class="photo-container">
+                            <img src="L'Auberge%20de%20l'Ill%20Nagoya.jpg" alt="L'Auberge de l'Ill">
+                        </div>
+                    </div>
                 </div>
-                <div class="image-box">
-                    <img src="三井Outlet-爵士之夢長島.webp" alt="三井Outlet">
-                    <div class="image-caption">🔍 實景對照：緊鄰樂園、採購全新 Samsonite 大箱的三井 Outlet。</div>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="time-box">10:30 - 18:00</div>
-                <div class="item-title">長島溫泉樂園 ✕ 三井 Outlet 購箱打包</div>
-                <div class="item-desc">上午暢玩刺激設施。下午進入 Outlet，在 Samsonite 專櫃購入全新大行李箱，現場直接將前幾日戰利品全部封箱。</div>
-                <a class="map-btn" href="https://maps.google.com/?q=Nagashima+Spa+Land" target="_blank">點我導航：長島溫泉樂園 停車場</a>
-            </div>
-
-            <div class="timeline-item">
-                <div class="time-box">18:45 - 19:15</div>
-                <div class="item-title">大卸貨與完美還車</div>
-                <div class="item-desc">開車回飯店大卸貨後，將全空的 GR Yaris 駛回名站據點，20:00 前完成還車，自駕流生活圓滿落幕。</div>
-                <a class="map-btn" href="https://maps.google.com/?q=Toyota+Rent+a+Car+Nagoya+Station+JR+Towers" target="_blank">點我導航：Toyota 租車 JR雙塔店</a>
             </div>
         </div>
 
-        <div class="day-section">
-            <div class="day-header">
-                <h2>📅 Day 6（5/30 六）都會慢活流，優雅高級高空晚宴</h2>
-            </div>
-
-            <div class="weather-panel">
-                <div class="weather-grid">
-                    <div class="weather-item"><strong>📍 名古屋市區：</strong>晴時多雲 (微風)</div>
-                    <div class="weather-item"><strong>🌡️ 氣溫：</strong>20°C ~ 28°C</div>
-                    <div class="weather-item"><strong>💧 降雨機率：</strong>10%</div>
-                    <div class="weather-item"><strong>📷 旅拍通透度：</strong>百萬級夜景視線極佳</div>
-                </div>
-                <div class="weather-tip">💡 紳士換裝：下午預留充裕時間在飯店精緻梳化換裝，伴侶可加條西裝外套或披肩防風。</div>
-            </div>
-
-            <div class="image-container-multi">
-                <div class="image-box">
-                    <img src="コンパル 大須本店 ｜ 炸蝦三明治 1947年.jpg" alt="炸蝦三明治" onerror="this.src='コンパル 大須本店 ｜ 炸蝦三明治 1947年.png'">
-                    <div class="image-caption">🔍 實景對照：1947年創業、外焦內嫩的大須老字號炸蝦三明治。</div>
+        <div class="day-card">
+            <div class="day-header"><i class="fa-solid fa-calendar-day"></i> DAY 7：常滑巨大招財貓 ✕ 滿載幸福商務艙賦歸</div>
+            <div class="day-body">
+                <div class="spot-section">
+                    <div class="spot-title">最終站：常滑站 ➔ 巨大招財貓 Tokonyan ➔ 機場貴賓室</div>
+                    <ul class="info-list">
+                        <li>飯店退房，帶全行李搭名鐵至常滑站，將大箱與電鍋鎖入站內置物櫃，<b>雙手空空極致輕裝</b>。</li>
+                        <li>步行陶瓷器步道與巨型萌貓頭合影。隨後搭車 5 分鐘抵達機場辦理優先托運。</li>
+                        <li>進入國泰航空商務艙貴賓室充電休息，搭乘 16:40 CX531 航班完美赋歸。</li>
+                    </ul>
+                    <div class="photo-container">
+                        <img src="常滑巨大招财猫.jpg" alt="常滑巨大招財貓">
+                    </div>
+                    <a href="https://maps.google.com/?q=Tokoname+Station" target="_blank" class="nav-btn"><i class="fa-solid fa-location-dot"></i> 點我導航：名鐵常滑站</a>
                 </div>
             </div>
-
-            <div class="timeline-item">
-                <div class="time-box">11:00 - 14:00</div>
-                <div class="item-title">大須商圈漫步 ✕ 元祖炸蝦三明治午餐</div>
-                <div class="item-desc">睡到自然醒。慢遊大須商店街，午餐品嚐爆盛酥脆的現炸大蝦三明治。</div>
-                <a class="map-btn" href="https://maps.google.com/?q=Konparu+Osu+Main+Shop" target="_blank">點我導航：コンパル 大須本店</a>
-            </div>
-
-            <div class="timeline-item">
-                <div class="time-box">17:00~</div>
-                <div class="item-title">米其林血統 L'Auberge de l'Ill Nagoya 浪漫之夜</div>
-                <div class="item-desc">換上 Smart Casual 微正式禮服。下樓前往 42 樓法國餐廳。在專屬訂妥的窗邊席位上優雅品嚐頂級精緻法餐，俯瞰整座名古屋都會繁華星光。</div>
-            </div>
-        </div>
-
-        <div class="day-section">
-            <div class="day-header">
-                <h2>📅 Day 7（5/31 日）常滑陶瓷古徑，滿載幸福從容賦歸</h2>
-            </div>
-
-            <div class="weather-panel">
-                <div class="weather-grid">
-                    <div class="weather-item"><strong>📍 常滑/機場：</strong>晴朗</div>
-                    <div class="weather-item"><strong>🌡️ 氣溫：</strong>21°C ~ 27°C</div>
-                    <div class="weather-item"><strong>💧 降雨機率：</strong>0%</div>
-                    <div class="weather-item"><strong>✈️ 航空氣流：</strong>高空極致平穩無干擾</div>
-                </div>
-                <div class="weather-tip">💡 托運提醒：象印電鍋紙箱本身具有完美抗震防撞結構，可直接當作一件行李托運，不需拆箱。</div>
-            </div>
-
-            <div class="image-container-multi">
-                <div class="image-box">
-                    <img src="常滑巨大招财猫.jpg" alt="常滑巨大招財貓">
-                    <div class="image-caption">🔍 實景對照：常滑必拍、極具張力的超巨大貓頭 Tokonyan。</div>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="time-box">12:15 - 14:00</div>
-                <div class="item-title">常滑巨大招財貓 ✕ 陶瓷器散步道</div>
-                <div class="item-desc">飯店退房。搭名鐵抵達常滑站，大箱與電鍋鎖入站內大型置物櫃。<strong>雙手完全空空</strong>步行遊覽陶瓷步道，與巨型招財貓留下趣味合影。</div>
-                <a class="map-btn" href="https://maps.google.com/?q=Tokoname+Station" target="_blank">點我導航：名鐵常滑站</a>
-            </div>
-
-            <div class="timeline-item">
-                <div class="time-box">14:20~</div>
-                <div class="item-title">商務艙尊榮貴賓室 ➔ 返台</div>
-                <div class="item-desc">取行李，5分鐘直達機場。前往國泰商務專屬櫃檯極速托運。隨後悠閒進入貴賓室放鬆休息，搭乘 16:40 CX531 航班完美赋歸。</div>
-            </div>
-        </div>
-
-        <div class="global-box">
-            <h3>🚨 行程核心注意事項與行車防錯機制</h3>
-            <ul>
-                <li><strong>飯店不退房（Day 3）：</strong> 清晨 07:00 出發前，房內行李一律不可挪動，跑車保持完全淨空狀態，追求山道最純粹的輕量化操駕體驗。</li>
-                <li><strong>電鍋不二價限制（Day 4）：</strong> 象印最高階「炎舞炊き」系列特定型號，日本近年實施製造商定價制，現場僅能享有 10% 免稅，無法疊加 7% 折扣券。</li>
-                <li><strong>高空側拍隱形流（Day 2）：</strong> 觀景台對商業攝影抓得極嚴，攝影師不可拿出腳架與反光板。全程必須以純手持錄影與拍照，保持洗鍊低調。</li>
-            </ul>
-        </div>
-
-        <div class="footer">
-            <p>— 祝 擁有一趟悠閒、洗鍊完美的初夏中部之旅 —</p>
         </div>
 
     </div>
+
+    <footer>
+        <p>© 2026 Premium Travel Handbook · 祝擁有一趟洗鍊完美的初夏自駕星光之旅</p>
+    </footer>
 
 </body>
 </html>
