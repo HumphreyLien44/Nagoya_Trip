@@ -59,13 +59,8 @@
 
         .weather-title { font-weight: bold; color: #2b6cb0; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.25rem; }
         .weather-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 6px; }
-
-        .day-strategy {
-            background-color: #f1f2f6; border-left: 4px solid var(--primary-color);
-            padding: 12px; margin-bottom: 1.5rem; border-radius: 0 8px 8px 0;
-        }
-        .day-strategy h3 { margin: 0 0 4px 0; font-size: 10pt; color: var(--primary-color); }
-        .day-strategy p { margin: 0; font-size: 9.5pt; color: #57606f; }
+        .weather-item strong { color: #2b6cb0; }
+        .weather-tip { border-top: 1px dashed #cbd5e0; padding-top: 4px; margin-top: 4px; color: #4a5568; font-size: 9pt; }
 
         .spot-section { margin-bottom: 1.5rem; }
         .spot-section:last-child { margin-bottom: 0; }
@@ -81,12 +76,13 @@
         .info-list li { position: relative; padding-left: 1.25rem; margin-bottom: 0.5rem; font-size: 0.95rem; text-align: justify; }
         .info-list li::before { content: "•"; color: var(--secondary-color); font-weight: bold; position: absolute; left: 0.25rem; }
 
-        /* 圖片滿版樣式 */
+        /* RWD 真實相片彈性自適應樣式 */
         .image-container-multi { display: flex; flex-direction: column; gap: 12px; margin-top: 0.75rem; margin-bottom: 1rem; }
         .photo-container { border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); background-color: #edf2f7; width: 100%; }
         .photo-container img { width: 100%; height: auto; display: block; object-fit: cover; }
         .image-caption { background-color: #fafafa; padding: 8px 10px; font-size: 8.5pt; color: #718096; border-top: 1px solid #edf2f7; }
 
+        /* 手機大寬度地圖導航按鈕 */
         .nav-btn {
             display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
             background-color: #ffffff; color: var(--primary-color); border: 1px solid var(--primary-color);
@@ -110,13 +106,13 @@
 
     <header>
         <h1><i class="fa-solid fa-star"></i> Nagoya & Hida: 7-Day Couple's Itinerary</h1>
-        <p>手機適配 RWD ✕ 100% 精準檔名 ✕ 氣象導航隨身手冊 ✈️</p>
+        <p>100% 原生檔名 ✕ 手機 RWD ✕ 氣象導航隨身手冊 ✈️</p>
     </header>
 
     <div class="container">
 
         <div class="day-card">
-            <div class="day-header"><i class="fa-solid fa-calendar-day"></i> DAY 1：性能鋼砲戰駒啟程與北上疾馳</div>
+            <div class="day-header"><i class="fa-solid fa-calendar-day"></i> DAY 1：自駕啟程與向高山疾馳</div>
             <div class="day-body">
                 <div class="weather-panel">
                     <div class="weather-title"><i class="fa-solid fa-cloud-sun"></i> 名古屋市一週天氣預報</div>
@@ -130,18 +126,17 @@
                 </div>
 
                 <div class="spot-section">
-                    <div class="spot-title">第一站：中部國際空港取車 ➔ 長良川 SA ➔ 高山 <span class="spot-time">15:30 降落</span></div>
+                    <div class="spot-title">第一站：中部國際空港 ➔ 取車 ➔ 高山 <span class="spot-time">15:30 降落</span></div>
                     <ul class="info-list">
-                        <li>搭乘國泰航空商務艙尊榮降落，極速出關後直奔交通廣場 Toyota 租車據點。</li>
-                        <li>領取 GR Yaris 性能鋼砲，北上飛馳前往高山。</li>
-                        <li>入住飯店 Check-in。當晚享用在地甚五郎拉麵。</li>
+                        <li>搭乘國泰商務艙尊榮降落，極速出關直奔交通廣場 Toyota 租車。</li>
+                        <li>領取 GR Yaris 性能鋼砲，北上飛馳前往高山入住溫泉飯店。</li>
                     </ul>
                     <div class="image-container-multi">
                         <div class="photo-container">
                             <img src="中部國際空港 セントレア.webp" alt="中部國際空港">
                         </div>
                         <div class="photo-container">
-                            <img src="GR Yaris.jpg" alt="GR Yaris">
+                            <img src="GR Yaris.jpeg" alt="GR Yaris" onerror="this.src='GR Yaris.jpg'">
                         </div>
                     </div>
                 </div>
@@ -149,7 +144,7 @@
         </div>
 
         <div class="day-card">
-            <div class="day-header"><i class="fa-solid fa-calendar-day"></i> DAY 2：輕裝疾馳新穗高 ✕ 世界遺產合掌村慢活</div>
+            <div class="day-header"><i class="fa-solid fa-calendar-day"></i> DAY 2：輕裝疾馳新穗高 ✕ 世界遺產合掌村</div>
             <div class="day-body">
                 <div class="weather-panel">
                     <div class="weather-title"><i class="fa-solid fa-sun"></i> 高山市一週天氣預報</div>
@@ -157,25 +152,18 @@
                         <div class="weather-item"><strong>📍 新穗高/合掌村：</strong>晴朗無雲</div>
                         <div class="weather-item"><strong>🚘 體感：</strong>高空能見度極高</div>
                     </div>
-                    <div class="photo-container" style="margin-top: 0.75rem;">
-                        <img src="高山市-一週天氣.jpg" alt="高山市一週天氣">
-                    </div>
-                </div>
-
-                <div class="day-strategy">
-                    <h3>🎯 今日輕裝大戰略</h3>
-                    <p><strong>大行李留在房間，絕對不退房！</strong> 兩人輕裝出發，釋放跑車操控魅力。</p>
+                    <div class="weather-tip">💡 禦寒備戰：新穗高山頂展望台氣溫極低，請務必帶上保暖厚外套。</div>
                 </div>
 
                 <div class="spot-section">
-                    <div class="spot-title">第一站：新穗高高空纜車首班車 ➔ 白川鄉合掌村 ➔ 三之町老街</div>
+                    <div class="spot-title">山道衝刺：新穗高纜車 ➔ 白川鄉合掌村 ➔ 三之町</div>
                     <ul class="info-list">
-                        <li>搭乘 08:30 第一班雙層高空纜車直攻展望台，避開大批觀光團客。</li>
-                        <li>午後漫步於初夏綠意環繞的白川鄉合掌村。</li>
+                        <li><strong>大行李留房內不退房！</strong> 輕裝釋放跑車山道極致操控。</li>
+                        <li>搭乘 08:30 首班雙層纜車直攻山頂。午後漫步童話般的白川鄉合掌村聚落。</li>
                     </ul>
                     <div class="image-container-multi">
                         <div class="photo-container">
-                            <img src="新穗高纜車.jpg" alt="新穗高纜車">
+                            <img src="新穗高纜車.webp" alt="新穗高纜車">
                         </div>
                         <div class="photo-container">
                             <img src="合掌村.jpg" alt="合掌村">
@@ -187,7 +175,7 @@
                 <div class="spot-section">
                     <div class="spot-title">晚餐饗宴：高山丸明燒肉</div>
                     <ul class="info-list">
-                        <li>入座高山燒肉名店「丸明」，大快朵頤油脂細緻的頂級飛驒牛。</li>
+                        <li>入座高山燒肉名店「丸明」，大快朵頤油脂細緻的 A5 飛驒牛。</li>
                     </ul>
                     <div class="photo-container">
                         <img src="高山丸明燒肉.jpg" alt="丸明燒肉">
@@ -197,12 +185,19 @@
         </div>
 
         <div class="day-card">
-            <div class="day-header"><i class="fa-solid fa-calendar-day"></i> DAY 3：07:00朝市突擊 ➔ 南下名古屋都會橫掃</div>
+            <div class="day-header"><i class="fa-solid fa-calendar-day"></i> DAY 3：07:00朝市突擊 ➔ 南下名古屋都會採購</div>
             <div class="day-body">
+                <div class="weather-panel">
+                    <div class="weather-title"><i class="fa-solid fa-cloud-rain"></i> 飛驒高山天氣預報 (局部小雨)</div>
+                    <div class="photo-container" style="margin-top: 0.75rem;">
+                        <img src="高山市-一週天氣.png" alt="高山一週天氣">
+                    </div>
+                </div>
+
                 <div class="spot-section">
-                    <div class="spot-title">第一站：宮川朝市體驗 ➔ 喫茶ドン <span class="spot-time">07:00 準時直攻</span></div>
+                    <div class="spot-title">第一站：宮川朝市體驗 <span class="spot-time">07:00 準時直攻</span></div>
                     <ul class="info-list">
-                        <li><b>07:00 準時直攻朝市！</b> 此時攤位剛擺好且人潮最少，搶先品嚐飛驒手作布丁。</li>
+                        <li><b>07:00 搶先突擊朝市！</b> 人潮最少，品嚐在地布丁與鮮牛奶。</li>
                     </ul>
                     <div class="photo-container">
                         <img src="宮川朝市.jpg" alt="宮川朝市">
@@ -210,10 +205,10 @@
                 </div>
 
                 <div class="spot-section">
-                    <div class="spot-title">第二站：名站 Bic Camera 搬電鍋 ➔ 榮町百貨精品橫掃</div>
+                    <div class="spot-title">第二站：名站 Bic Camera 搬電鍋 ➔ 榮町精品橫掃</div>
                     <ul class="info-list">
-                        <li>中午開車南下名古屋，直殺 Bic Camera 西店打包象印頂級電鍋鎖入後車廂。</li>
-                        <li>下午進駐榮町 Jumbo Parking，一站橫掃松坂屋與唐吉訶德。車輛停入飯店「封印不移車」。</li>
+                        <li>開車南下直殺 Bic Camera 西店，打包象印頂級電鍋鎖入後車廂。</li>
+                        <li>下午進駐榮町橫掃松坂屋與唐吉訶德。車輛停入飯店「封印不移車」。</li>
                     </ul>
                     <div class="photo-container">
                         <img src="Bic Camera 名古屋駅西店.webp" alt="Bic Camera 名古屋駅西店">
@@ -223,7 +218,7 @@
                 <div class="spot-section">
                     <div class="spot-title">晚餐盛宴：カツレツ MATUMURA（炸豬排 滿村）</div>
                     <ul class="info-list">
-                        <li>搭地鐵前往大名古屋 Building，享用低溫慢炸粉紅豬排。</li>
+                        <li>搭地鐵前往大名古屋 Building，享用米其林血統低溫慢炸粉紅豬排。</li>
                     </ul>
                     <div class="photo-container">
                         <img src="カツレツ MATUMURA-低溫慢炸豬排.jpg" alt="炸豬排 滿村">
@@ -233,12 +228,12 @@
         </div>
 
         <div class="day-card">
-            <div class="day-header"><i class="fa-solid fa-calendar-day"></i> DAY 4：夢幻吉卜力奇幻全日沉浸大冒險</div>
+            <div class="day-header"><i class="fa-solid fa-calendar-day"></i> DAY 4：吉卜力奇幻全日沉浸大冒險</div>
             <div class="day-body">
                 <div class="spot-section">
-                    <div class="spot-title">全天行程：吉卜力公園 (Ghibli Park) 全日極致沉浸 <span class="spot-time">10:00 - 17:00</span></div>
+                    <div class="spot-title">全天行程：吉卜力公園 (Ghibli Park) <span class="spot-time">10:00 - 17:00</span></div>
                     <ul class="info-list">
-                        <li>10:00 開園直衝「魔女之谷」拿霍爾城堡整理券；下午 14:00 順暢進入全室內大倉庫。</li>
+                        <li>10:00 開園直衝「魔女之谷」拿霍爾城堡整理券；14:00 進入全室內大倉庫。</li>
                     </ul>
                     <div class="photo-container">
                         <img src="吉卜力公園.jpeg" alt="吉卜力公園">
@@ -249,22 +244,22 @@
                 <div class="spot-section">
                     <div class="spot-title">晚餐盛宴：あつた蓬萊軒 松坂屋店</div>
                     <ul class="info-list">
-                        <li>閉園後返回榮町步行前往松坂屋分店，現場排隊享用正宗名古屋鰻魚三吃。</li>
+                        <li>返回榮町，前往松坂屋排隊享用正宗名古屋鰻魚三吃。</li>
                     </ul>
                     <div class="photo-container">
-                        <img src="蓬萊軒 ひつまぶし 鰻魚三吃.jpg" alt="蓬萊軒">
+                        <img src="蓬萊軒 ひつまぶし 鰻魚三吃.webp" alt="蓬萊軒">
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="day-card">
-            <div class="day-header"><i class="fa-solid fa-calendar-day"></i> DAY 5：長島溫泉樂園 ✕ 鋼砲圓滿還車與飛驒牛</div>
+            <div class="day-header"><i class="fa-solid fa-calendar-day"></i> DAY 5：長島溫泉樂園 ✕ 鋼砲還車與飛驒牛</div>
             <div class="day-body">
                 <div class="spot-section">
-                    <div class="spot-title">白晝行程：長島溫泉樂園 ➔ 三井 Outlet 購箱打包 <span class="spot-time">10:30 - 18:00</span></div>
+                    <div class="spot-title">白晝行程：長島溫泉樂園 ➔ 三井 Outlet <span class="spot-time">10:30 - 18:00</span></div>
                     <ul class="info-list">
-                        <li>上午暢玩長島溫泉樂園巨型雲霄飛車。下午於 Outlet Samsonite 購入大行李箱現場封箱。</li>
+                        <li>上午瘋玩巨大雲霄飛車。下午於 Outlet 買全新大箱現場封箱。</li>
                         <li>18:00 離場回飯店卸貨。20:00 前將跑車開回名站據點完成還車。</li>
                     </ul>
                     <div class="image-container-multi">
@@ -280,7 +275,7 @@
                 <div class="spot-section">
                     <div class="spot-title">自駕圓滿晚餐：飛驒牛一頭家 馬喰一代 名古屋WEST</div>
                     <ul class="info-list">
-                        <li>晚餐入座飛驒牛一頭家奢華包廂，品嚐最高認證 A5 飛驒牛，慶祝自駕圓滿落幕。</li>
+                        <li>入座奢華包廂品嚐 A5 頂級飛驒牛，慶祝自駕圓滿落幕。</li>
                     </ul>
                     <div class="photo-container">
                         <img src="飛驒牛一頭家 馬喰一代 名古屋WEST.jpg" alt="馬喰一代">
@@ -290,20 +285,20 @@
         </div>
 
         <div class="day-card">
-            <div class="day-header"><i class="fa-solid fa-calendar-day"></i> DAY 6：都會慢活浪漫 ✕ 紳士換裝高空星光旅拍</div>
+            <div class="day-header"><i class="fa-solid fa-calendar-day"></i> DAY 6：都會慢活 ✕ 紳士換裝高空星光旅拍</div>
             <div class="day-body">
                 <div class="spot-section">
                     <div class="spot-title">午餐名店：コンパル 大須本店 炸蝦三明治</div>
                     <ul class="info-list">
-                        <li>慢步大須商店街。午餐朝聖 1947 年創業老店，享受爆盛香酥的招牌炸蝦三明治。</li>
+                        <li>慢步大須商店街。午餐朝聖 1947 年老店，享受爆盛香酥的炸蝦三明治。</li>
                     </ul>
                     <div class="photo-container">
-                        <img src="コンパル 大須本店 ｜ 炸蝦三明治 1947年.jpg" alt="大須 炸蝦三明治">
+                        <img src="コンパル 大須本店 ｜ 炸蝦三明治 1947年.png" alt="大須 炸蝦三明治">
                     </div>
                 </div>
 
                 <div class="spot-section">
-                    <div class="spot-title">傍晚行程：Sky Promenade 高空隨行旅拍 ➔ L'Auberge de l'Ill 法餐 <span class="spot-time">17:00 - 19:00</span></div>
+                    <div class="spot-title">傍晚：Sky Promenade 旅拍 ➔ L'Auberge de l'Ill 法餐 <span class="spot-time">17:00 - 19:00</span></div>
                     <ul class="info-list">
                         <li>換上微正式禮服，在 44F 露天迴廊記錄都會夜景（現場禁腳架，純手持）。</li>
                         <li>晚餐登上 42 樓 L'Auberge 法國餐廳，俯瞰璀璨繁星享用星級晚宴。</li>
